@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>우리의 회의실 · Council</title><link rel="stylesheet" href="/style.css"><script defer src="/app.js"></script></head>
+<body>
+<aside class="sidebar">
+  <a class="brand" href="/" aria-label="회의실 홈"><span class="brand-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><circle cx="12" cy="12" r="7"/><path d="M12 2v3m10 7h-3M12 22v-3M2 12h3"/></svg></span><span>COUNCIL<small>우리의 AI 회의실</small></span></a>
+  <button id="new-meeting" class="primary">＋ 새 안건</button>
+  <p class="eyebrow">MEETING ARCHIVE</p><nav id="meeting-list" aria-label="회의 목록"></nav>
+  <div class="sidebar-bottom"><div class="local-dot"></div> 내 컴퓨터에 저장<div id="connections">연결 환경 확인 중</div><small>개인용 · 제공 자료 검토</small></div>
+</aside>
+<main>
+  <header><div class="breadcrumb">WORKSPACE <span>/</span> 회의실</div><div class="header-actions"><span id="save-state">자동 저장</span><button id="export" class="quiet" disabled>기록 내보내기 ↗</button></div></header>
+  <div id="notice" role="alert" hidden></div>
+  <section id="empty" class="empty"><h1>같은 안건.<br>서로 다른 관점.<br><em>근거 있는 결정.</em></h1><p>Codex와 Claude가 기획·사업·디자인·개발의 관점으로<br>검토하고 토론합니다. 마지막 판단은 CBO가 정리합니다.</p><button id="first-meeting" class="primary">첫 회의 시작하기 →</button><div class="empty-notes"><span>간단 9회 · 전체 61회 선택</span><span>최대 2라운드</span><span>근거와 변경 이력 보존</span></div></section>
+  <section id="workspace" hidden>
+    <div class="title-row"><div><div id="meeting-meta" class="eyebrow"></div><h1 id="meeting-title"></h1></div><div class="title-actions"><span id="meeting-status" class="pill"></span><button id="resume" class="primary" hidden>미완료 단계 재시도</button><button id="stop" class="danger" hidden>회의 중단</button><button id="revise" class="quiet">새 버전으로 재검토</button></div></div>
+    <details class="brief"><summary>안건과 공통 근거 <span id="brief-version"></span></summary><div class="brief-body"><h2>목표 · 조건</h2><p id="brief-text" class="prewrap"></p><h2>공통 근거</h2><div id="evidence-list"></div><p class="muted">제공된 자료만 검토합니다. URL은 자동 열람하지 않으며, 각 자료는 사용자 제공·미검증으로 구분합니다.</p><div id="skill-hash" class="muted"></div></div></details>
+    <details class="brief role-guide"><summary>팀별 역할과 일하는 순서</summary><div class="brief-body">
+<p class="muted">협업의 기본안입니다. 이번 안건에 대한 권고는 아래 CBO 결론에서 확인하세요.</p>
+<dl><dt>사업팀 — 왜 이 일을 해야 할까?</dt><dd>고객이 원하는 것, 시장 상황, 수익과 비용을 확인합니다. 확인된 사실과 아직 모르는 조건을 정리해 모두에게 전달합니다.</dd>
+<dt>기획팀 — 무엇을 어디까지 만들까?</dt><dd>해결할 문제, 사용자의 행동, 필요한 기능과 우선순위, 예외 상황과 성공 기준을 정리합니다.</dd>
+<dt>디자인팀 — 누구나 쉽게 사용할 수 있을까?</dt><dd>사용 순서와 화면을 설계하고, 설명·오류 안내까지 실제 사용자가 이해하는지 확인합니다.</dd>
+<dt>개발팀 — 만들고 운영할 수 있을까?</dt><dd>구현 방법, 필요한 연동, 작업량, 보안과 운영 위험을 확인하고 구현·검증을 맡습니다.</dd>
+<dt>CBO — 진행할 가치가 있고 위험을 감당할 수 있을까?</dt><dd>네 팀의 근거와 반대를 비교해 진행·보류·중단을 권고합니다. 최종 결정은 사용자가 합니다.</dd></dl>
+<h3>기본 업무 순서</h3><ol>
+<li><b>사업팀이 먼저 정리합니다.</b> 고객·수요·수익·비용과 미확인 조건을 담은 자료를 준비합니다.</li>
+<li><b>네 팀이 함께 재검토합니다.</b> 부족한 근거와 실현 가능한 범위를 확인합니다. 기술 가능성과 사용성은 이때부터 함께 확인할 수 있습니다.</li>
+<li><b>사업팀이 결과를 전원에게 공유합니다.</b> 합의한 범위, 남은 쟁점, 담당 팀과 다음 단계 조건을 기록합니다. CBO 권고를 보고 사용자가 진행 여부를 결정합니다.</li>
+<li><b>기획이 범위를 구체화하고 디자인·개발이 함께 진행합니다.</b> 요구사항과 성공 기준을 공유한 뒤 화면 설계와 구현 검토를 병행하고, 범위가 바뀌면 다시 함께 확인합니다.</li>
+<li><b>네 팀이 결과를 확인합니다.</b> 처음 정한 성공 기준과 실제 결과를 비교해 다음 행동을 정합니다.</li></ol>
+<p class="muted">안건에 따라 순서와 병행할 일은 달라집니다. 자료가 부족하거나 다음 단계 조건을 충족하지 못하면 담당 팀이 보완한 뒤 다시 검토합니다.</p>
+</div></details>
+    <div class="steps" aria-label="진행 단계"><span data-phase="review">01 · 독립 검토</span><span data-phase="internal">02 · 팀 내 반박</span><span data-phase="debate">03 · 팀 간 토론</span><span data-phase="decision">04 · CBO 판단</span></div>
+    <div class="room-grid">
+      <section class="room-panel"><div class="panel-heading"><h2>라운드테이블</h2><span id="live-state" class="muted">대기</span></div><div class="table-layout" id="table-layout">
+        <button class="team-seat planning" data-team="기획"><span class="team-header"><strong>기획팀</strong><small>Codex</small></span><span class="roles"><i>전략</i><i>고객</i><i>정책</i><i>운영</i><i>검증</i></span><span class="team-state">대기</span></button>
+        <button class="team-seat business" data-team="사업"><span class="team-header"><strong>사업팀</strong><small>Claude</small></span><span class="roles"><i>전략</i><i>시장</i><i>수익</i><i>유통</i><i>현금</i></span><span class="team-state">대기</span></button>
+        <div class="round-table"><span class="table-orbit"></span><span class="eyebrow">SHARED CONTEXT</span><strong id="table-label">하나의 안건, 20명의 독립 의견</strong><span id="table-subtitle">실제 응답을 기다립니다</span><div class="table-count"><b id="complete-count">0</b> / <span id="total-count">61</span> 실행 완료</div></div>
+        <button class="team-seat design" data-team="디자인"><span class="team-header"><strong>디자인팀</strong><small>Claude</small></span><span class="roles"><i>UX</i><i>조사</i><i>구조</i><i>접근성</i><i>콘텐츠</i></span><span class="team-state">대기</span></button>
+        <button class="team-seat development" data-team="개발"><span class="team-header"><strong>개발팀</strong><small>Codex</small></span><span class="roles"><i>구조</i><i>연동</i><i>데이터</i><i>보안</i><i>품질</i></span><span class="team-state">대기</span></button>
+        <button class="team-seat cbo" data-team="CBO"><span class="team-header"><strong>CBO</strong><small>Codex · 별도 검토</small></span><span class="team-state">모든 검토 후 판단</span></button>
+      </div><p id="execution-note" class="execution-note">각 구성원이 별도 호출로 검토하고 반박합니다. 실제 실행과 발언 기록만 표시합니다.</p></section>
+      <section class="detail-panel"><div class="panel-heading"><h2 id="speaker-title">발언과 근거</h2><button id="follow" class="quiet">현재 발언 따라가기</button></div><div id="speech" aria-live="polite"><p class="muted">각 팀원의 자리를 선택하면 발언과 근거를 볼 수 있습니다.</p></div></section>
+    </div>
+    <section id="verdict-section" class="verdict" hidden><div class="eyebrow">CBO DECISION</div><h2 id="verdict-title"></h2><p id="verdict-position" hidden></p><p id="verdict-summary"></p><div id="verdict-explanation" hidden></div><div id="verdict-body" class="verdict-columns"></div><small>CBO 판단은 입력된 근거 기준입니다. 화면의 완료는 실행·저장 완료를 뜻하며 내용의 사실성이나 업무 효용을 보증하지 않습니다. 최종 결정은 사용자에게 있습니다.</small></section>
+    <div class="bottom-grid"><section class="history-panel"><div class="panel-heading"><h2>실행 타임라인</h2><span class="muted">완료 기록 보존</span></div><div id="timeline"></div></section><section class="history-panel"><div class="panel-heading"><h2>판단·버전 변경</h2></div><div id="changes"></div></section></div>
+  </section>
+</main>
+<footer class="now-speaking" id="now-speaking" aria-label="현재 회의 실행 상태">
+ <div class="now-person"><span class="now-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M6 11v1a6 6 0 0 0 12 0v-1M12 18v4m-4 0h8"/></svg></span><span><strong id="now-name">회의를 선택해 주세요</strong><small id="now-phase">실제 발언과 근거를 함께 확인합니다</small></span></div>
+ <div class="now-progress"><div class="now-progress-label"><span id="now-stage">회의 대기</span><span id="now-count">0 / 61 실행</span></div><progress id="meeting-progress" value="0" max="61" aria-label="회의 실행 완료 수"></progress></div>
+ <button id="now-follow">현재 발언 보기</button>
+</footer>
+<dialog id="meeting-dialog"><form id="meeting-form"><div class="dialog-top"><span class="eyebrow">NEW COUNCIL</span><button type="button" id="close-dialog" class="quiet" aria-label="닫기">✕</button></div><h2 id="form-title">어떤 결정을 함께 검토할까요?</h2><label>회의 방식<select id="mode-input"><option value="lite-v1">간단 회의 · 팀 대표 4명 + CBO · 9회 호출</option><option value="members-v2">전체 회의 · 팀원 20명 + CBO · 61회 호출</option></select></label><p id="mode-description" class="muted"></p><label>안건<input id="title-input" maxlength="160" required placeholder="예: 무지 종이 상품의 부업 판매 테스트"></label><label>목표 · 조건 · 기존 판단<textarea id="brief-input" rows="5" maxlength="20000" required placeholder="왜 검토하는지, 유지할 아이템과 조건, 이미 내린 판단, 이번에 결정할 질문을 적어 주세요."></textarea></label><label>근거 자료 <span class="muted">선택 · 한 줄에 하나</span><textarea id="evidence-input" rows="4" maxlength="30000" placeholder="확인한 수치·조건·자료의 내용을 적어 주세요. 출처 URL도 함께 남길 수 있습니다."></textarea></label><p class="form-note">입력 내용과 planning-council 지침이 선택된 두 AI 서비스에 전달됩니다. 기존 안건의 수정은 새 버전으로 저장됩니다.</p><div id="form-error" role="alert"></div><div class="dialog-footer"><button type="button" id="save-draft" class="quiet">초안만 저장</button><button type="submit" class="primary" id="submit-meeting">저장하고 실제 회의 시작 →</button></div></form></dialog>
+</body></html>

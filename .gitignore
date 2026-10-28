@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+data/
+auth/
+.env*
+*.sqlite3*
+.DS_Store
+.council-install
