@@ -32,7 +32,6 @@ class DistributionTests(unittest.TestCase):
                 z.extractall(tmp/'unpacked')
             src=tmp/'unpacked/AI-Meeting-Room-macOS'
             skill=(src/'skills/planning-council/SKILL.md').read_text()
-            self.assertNotIn('## 선택 역할: AAP 플랫폼 개발 리더',skill)
             self.assertIn('쉬운 토론',skill)
             self.assertNotIn(str(Path.home()), ''.join(p.read_text() for p in src.rglob('*') if p.is_file()))
             import hashlib

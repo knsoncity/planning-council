@@ -41,15 +41,8 @@ def build():
             shutil.copy2(ROOT/name,dst)
         for name in ('install.py','launcher.py','시작 안내.html'):
             shutil.copy2(ROOT/'distribution'/name,root/name)
-        skill_path=ROOT/'skills/planning-council/SKILL.md'
-        if not skill_path.is_file():
-            skill_path=Path.home()/'.codex/skills/planning-council/SKILL.md'
-        skill=skill_path.read_text()
-        # The team's generic skill excludes the owner's company-specific context.
-        if '## 선택 역할: AAP 플랫폼 개발 리더' in skill:
-            start=skill.index('## 선택 역할: AAP 플랫폼 개발 리더')
-            end=skill.index('## 5. 사용자에게 전달할 최종 결과',start)
-            skill=skill[:start]+skill[end:]
+        # Build only the reviewed, bundled skill; never read private user configuration.
+        skill=(ROOT/'skills/planning-council/SKILL.md').read_text()
         dst=root/'skills/planning-council/SKILL.md'
         dst.parent.mkdir(parents=True);dst.write_text(skill)
         for name,target in {'설치.command':'install.py','실행.command':'launcher.py',
